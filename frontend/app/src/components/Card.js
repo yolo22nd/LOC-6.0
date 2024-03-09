@@ -9,16 +9,19 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 
-const Card = ({ title, img,currency,price }) => {
+const Card = ({ title, img,currency,price,discount }) => {
   return (
     // <div className="mt-32 ml-8 shadow-2xl w-80 h-[60vh]">
-      <div key={"1"} class="rounded-lg overflow-hidden shadow-2xl w-80 ml-8 bg-white mb-8">
-        <img class="w-80 h-96" src={img} alt="" />
+      <div key={"1"} class="rounded-lg overflow-hidden shadow-2xl ml-8 w-80 bg-white mb-8">
+        <div className="flex justify-center">
+        <img class=" h-96" src={img} alt="" />
+        </div>
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2 text-black">
             {title}
           </div>
           <p><span className="font-bold">Price: </span><span>{currency}</span><span>{price}</span></p>
+          <p className="font-semibold text-red-500">{discount}</p>
         </div>
       </div>
     // </div>

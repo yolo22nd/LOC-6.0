@@ -96,15 +96,15 @@ const Navbar = () => {
        </div>
        <div className='mt-2 w-[40%] text-right mr-4'>
                 <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-                    <div className='flex w-[60vh] bg-orange-100 rounded-full mr-4'>
+                    <div className='flex w-[60vh] bg-orange-100 shadow-lg border-orange-400 border-2 rounded-full mr-4'>
                     <SearchIcon className='ml-2 mt-2 mr-2'/>
                     <input
                         type="search"
-                        className="relative m-0 -mr-0.5 mr-2 block w-[1px] min-w-0 flex-auto bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3]   focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                        className="relative m-0 -mr-0.5 mr-2 block w-[1px] min-w-0 flex-auto bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black outline-none transition duration-200 ease-in-out focus:z-[3]   focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
                         placeholder="Search"
                         aria-label="Search"
                         aria-describedby="button-addon1" />
-                <button className='text-slate-95 mr-2'>Search</button>
+                <button className='text-gray-500 text-sm mr-2'>Search</button>
                 </div>
          <button className='bg-orange-500 text-white px-4 py-2 rounded-full'>
           <a href='/register'>Sign In</a>

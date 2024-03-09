@@ -5,6 +5,10 @@ const Home = () => {
   return (
     <div>
       <Navbar/>
+
+      <div className='h-screen bg-orange-50'>
+
+      </div>
     </div>
   )
 }

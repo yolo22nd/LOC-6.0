@@ -342,7 +342,7 @@ const Productlist = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-wrap justify-center mt-32 ml-64 ">
+      <div className="flex flex-wrap justify-center pt-32 ml-64">
         {currentItems.map((product) => (
           <Card
             key={product.pid}
@@ -350,6 +350,7 @@ const Productlist = () => {
             img={product.images?.[0]}
             currency={product.currency}
             price={product.price}
+            discount={product.discount}
           />
         ))}
       </div>
@@ -358,7 +359,7 @@ const Productlist = () => {
           <ul className="pagination flex">
             {Array.from({ length: Math.ceil(products.length / itemsPerPage) }, (_, index) => (
               <li key={index} className="page-item mr-4">
-                <button onClick={() => paginate(index + 1)} className="page-link w-8 h-8 bg-orange-400 rounded-sm">
+                <button onClick={() => paginate(index + 1)} className="page-link w-8 h-8 border-orange-400 border-2 hover:bg-orange-400 rounded-sm">
                   {index + 1}
                 </button>
               </li>
