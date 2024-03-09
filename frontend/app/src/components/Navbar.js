@@ -6,18 +6,45 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { styled } from '@mui/system';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 function SidebarContent() {
-  return (
-    <div className="bg-slate-900 text-white w-64 h-screen fixed top-0 left-0 z-8">
-      <ul className='mt-12'>
-        <li className='p-4'>Profile</li>
-        <li className='p-4'>Events</li>
-        <li className='p-4'>Settings</li>
-      </ul>
-    </div>
-  );
+    return (
+        <div className="bg-orange-500 text-white w-64 h-screen fixed top-16 left-0 z-8 mt-2">
+          <h2 className="font-bold text-lg p-4">Filters</h2>
+          <div className="px-4">
+            <label className="flex items-center mt-4 text-lg font-semibold">
+              <input
+                type="checkbox"
+                // checked={filters.brand}
+                // onChange={() => handleFilterChange("brand")}
+                className="mr-2"
+              />
+              Brand
+            </label>
+            <label className="flex items-center mt-4 text-lg font-semibold">
+              <input
+                type="checkbox"
+                // checked={filters.price}
+                // onChange={() => handleFilterChange("price")}
+                className="mr-2"
+              />
+              Price
+            </label>
+            <label className="flex items-center mt-4 text-lg font-semibold">
+              <input
+                type="checkbox"
+                // checked={filters.category}
+                // onChange={() => handleFilterChange("category")}
+                className="mr-2"
+              />
+              Category
+            </label>
+            {/* Add more checkbox options for filters */}
+          </div>
+        </div>
+      );
 }
 
 function Sidebar() {
@@ -29,11 +56,11 @@ function Sidebar() {
 
   return (
     <div>
-      <MenuOutlinedIcon className="mr-4 cursor-pointer z-100" onClick={toggleSidebar} />
+      <MenuOutlinedIcon className="mr-4 cursor-pointer z-100 text-black" onClick={toggleSidebar} />
       {isOpen && <SidebarContent />}
       {isOpen && (
         <CloseOutlinedIcon
-        className="mr-4 cursor-pointer z-10 absolute top-6 left-52" 
+        className="mr-4 cursor-pointer z-10 absolute top-16 left-52 text-white mt-6" 
           onClick={toggleSidebar}
         />
       )}
@@ -53,24 +80,36 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed" style={{backgroundColor:'black'}}>
+    <AppBar position="fixed" style={{backgroundColor:'#fff'}}>
       <Toolbar>
       <Sidebar className="z-100"/>
-       < nav className='bg-black h-16 text-white font-bold flex w-full'>
-     <div className='w-16 h-8 ml-2'>
+       < nav className='bg-white h-16 text-black font-bold flex w-full'>
+     {/* <div className='w-16 h-8 ml-2'>
          <img src='https://img.freepik.com/premium-vector/simple-white-letter-p-logo-with-ring-black-background_620194-1320.jpg'/>
-       </div>
-       <div className='w-[80%]'>
+       </div> */}
+       <div className='w-[60%]'>
        <ul className='flex'>
-         <li className='mt-4 mb-4 mx-8 cursor-pointer border-b-2 hover:text-lime-300 hover:text-lg hover:border-lime-300'><a href='#'></a>Home</li>
-         <li className='mt-4 mb-4 mx-8 cursor-pointer border-b-2 hover:text-lime-300 hover:text-lg hover:border-lime-300'><a href='#'></a>About</li>
-         <li className='mt-4 mb-4 mx-8 cursor-pointer border-b-2 hover:text-lime-300 hover:text-lg hover:border-lime-300'><a href='#'></a>Contact</li>
+         <li className='mt-4 mb-4 mx-8 cursor-pointer text-orange-500 hover:text-orange-700 hover:text-lg'><a href='#'></a>Home</li>
+         <li className='mt-4 mb-4 mx-8 cursor-pointer text-orange-500 hover:text-orange-700 hover:text-lg'><a href='#'></a>About</li>
+         <li className='mt-4 mb-4 mx-8 cursor-pointer text-orange-500 hover:text-orange-700 hover:text-lg'><a href='#'></a>Contact</li>
        </ul>
        </div>
-       <div className='mt-2 w-[20%] text-right mr-4'>
-         <button className='bg-white text-slate-900 px-4 py-2 rounded-full'>
+       <div className='mt-2 w-[40%] text-right mr-4'>
+                <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+                    <div className='flex w-[60vh] bg-orange-100 shadow-lg border-orange-400 border-2 rounded-full mr-4'>
+                    <SearchIcon className='ml-2 mt-2 mr-2'/>
+                    <input
+                        type="search"
+                        className="relative m-0 mr-2 block w-[1px] min-w-0 flex-auto bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black outline-none transition duration-200 ease-in-out focus:z-[3]   focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                        placeholder="Search"
+                        aria-label="Search"
+                        aria-describedby="button-addon1" />
+                <button className='text-gray-500 text-sm mr-2'>Search</button>
+                </div>
+         <button className='bg-orange-500 text-white px-4 py-2 rounded-full'>
           <a href='/register'>Sign In</a>
       </button>
+                </div>
     </div>
   </nav>
       </Toolbar>
