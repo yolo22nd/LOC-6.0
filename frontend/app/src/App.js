@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import ProductPage from './components/ProductPage';
 import Productlist from './components/Productlist';
 import Home  from './components/Home';
+import Comparison from './components/Comparison';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               {/* <Route element={<Loginpage/>} path='/login'/>   */}
               <Route element={<Home/>} path='/'/>  
               <Route element={<Productlist/>} path='/productlist'/>  
+              <Route element={<Comparison/>} path='/comparison'/>  
               {/* <Route element={<Registerpage/>} path='/register'/>   */}
             </Routes>
           {/* </AuthProvider> */}
