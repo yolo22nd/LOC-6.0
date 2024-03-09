@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter ,Routes, Route, } from 'react-router-dom'
 // import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Productlist from './components/Productlist';
+import Home  from './components/Home';
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
           {/* <AuthProvider>   */}
             <Routes>      
               {/* <Route element={<Loginpage/>} path='/login'/>   */}
-              <Route element={<Navbar/>} path='/'/>  
+              <Route element={<Home/>} path='/'/>  
+              <Route element={<Productlist/>} path='/productlist'/>  
               {/* <Route element={<Registerpage/>} path='/register'/>   */}
             </Routes>
           {/* </AuthProvider> */}
