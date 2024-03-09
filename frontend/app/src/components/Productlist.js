@@ -2,27 +2,29 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Card from "./Card";
 import axios from "./Axios";
+import data from './temp.json'
 
 const Productlist = () => {
-  const [data, setData] = useState([]);
-  const [render, setRender] = useState(false);
-    const getData = async () => {
-        const res = await axios.get('fetchall/', { headers: { 'Content-Type': 'application/json' } });
-        await setData(res.data.data)
-        console.log(res.data.data)
-        if(data[0]?.title !== null)
-        setRender(true);
-        console.log(res)
-    }
-    useEffect(() => {
-        getData();
-    },[])
+//   const [data, setData] = useState([]);
+// console.log(data)
+  const [render, setRender] = useState(true);
+//     const getData = async () => {
+//         const res = await axios.get('fetchall/', { headers: { 'Content-Type': 'application/json' } });
+//         await setData(res.data.data)
+//         console.log(res.data.data)
+//         if(data[0]?.title !== null)
+//         setRender(true);
+//         console.log(res)
+//     }
+//     useEffect(() => {
+//         getData();
+//     },[])
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 30; // Number of items to display per page
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data.dummy_data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

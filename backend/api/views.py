@@ -10,7 +10,7 @@ import csv
 
 class FetchAllData(APIView):
     def get(self, request):
-        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+        csv_file_path = 'C:/Users/Parushi/Desktop/loc2/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_all(csv_file_path)
         for i in data:
             if i["images"]:
