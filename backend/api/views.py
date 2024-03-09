@@ -15,8 +15,8 @@ from rest_framework.permissions import AllowAny
 # Create your views here.
 
 class FetchAllData(APIView):
-    def get(self, request):
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+    def post(self, request):
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/v2/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_all(csv_file_path)
         for i in data:
             if i["images"]:
@@ -37,8 +37,8 @@ def fetch_data_all(csv_file_path, request_data):
 
 
 class FetchFilteredData(APIView):
-    def get(self, request):
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+    def post(self, request):
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/v2/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_filtered(csv_file_path, request.data)
         for i in data:
             if i["images"]:
@@ -248,7 +248,7 @@ class ProductComparison(APIView):
 
     def get_product_data_from_csv(self, product_id):
         print(product_id)
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/v2/flipkart_data_2022_06_sample.csv'
         with open(csv_file_path, 'r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             # data = list(reader)
