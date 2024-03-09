@@ -10,12 +10,12 @@ import csv
 
 class FetchAllData(APIView):
     def get(self, request):
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_all(csv_file_path)
         for i in data:
             if i["images"]:
                 i["images"] = i["images"].split(" | ")
-        return Response({"data" : data[0-5]})
+        return Response({"data" : data})
 
 
 def fetch_data_all(csv_file_path):
@@ -28,7 +28,7 @@ def fetch_data_all(csv_file_path):
 
 class FetchFilteredData(APIView):
     def get(self, request):
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_filtered(csv_file_path, request.data)
         for i in data:
             if i["images"]:
