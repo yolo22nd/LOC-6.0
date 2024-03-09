@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',
+
+    
+    'api.apps.ApiConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
@@ -122,9 +124,8 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+CORS_ALLOW_ALL_ORIGINS=True
+
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
