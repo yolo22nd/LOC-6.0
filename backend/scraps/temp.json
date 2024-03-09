@@ -1,0 +1,69 @@
+{
+    "dummy_data": [
+      {
+        "id": 0,
+        "platform": "Flipkart",
+        "title": "Dummy Camera A",
+        "price": "₹10,000",
+        "href": "https://www.flipkart.com/dummy-camera-a/p/dummy-id-0",
+        "rating": "4.0",
+        "offers": [
+          "Bank Offer10% off on Dummy Bank Credit Card Transactions, up to ₹500 on orders of ₹2,000 and aboveT&C",
+          "Special PriceGet extra 20% off (price inclusive of dummy/coupon)T&C"
+        ],
+        "reviews": "25 Reviews",
+        "cut_price": "₹15,000",
+        "after_5_percent": ["950"],
+        "coupon_val": 1000
+      },
+      {
+        "id": 1,
+        "platform": "Flipkart",
+        "title": "Dummy Camera B",
+        "price": "₹15,000",
+        "href": "https://www.flipkart.com/dummy-camera-b/p/dummy-id-1",
+        "rating": "3.8",
+        "offers": [
+          "Bank Offer10% off on Dummy Bank Credit Card Transactions, up to ₹750 on orders of ₹3,000 and aboveT&C",
+          "Special PriceGet extra 15% off (price inclusive of dummy/coupon)T&C"
+        ],
+        "reviews": "30 Reviews",
+        "cut_price": "₹20,000",
+        "after_5_percent": ["1425"],
+        "coupon_val": 1200
+      },
+      {
+        "id": 2,
+        "platform": "Flipkart",
+        "title": "Dummy Camera C",
+        "price": "₹20,000",
+        "href": "https://www.flipkart.com/dummy-camera-c/p/dummy-id-2",
+        "rating": "4.2",
+        "offers": [
+          "Bank Offer10% off on Dummy Bank Credit Card Transactions, up to ₹1,000 on orders of ₹4,000 and aboveT&C",
+          "Special PriceGet extra 18% off (price inclusive of dummy/coupon)T&C"
+        ],
+        "reviews": "35 Reviews",
+        "cut_price": "₹25,000",
+        "after_5_percent": ["1875"],
+        "coupon_val": 1500
+      },
+      {
+        "id": 49,
+        "platform": "Flipkart",
+        "title": "Dummy Camera Z",
+        "price": "₹25,000",
+        "href": "https://www.flipkart.com/dummy-camera-z/p/dummy-id-49",
+        "rating": "4.5",
+        "offers": [
+          "Bank Offer10% off on Dummy Bank Credit Card Transactions, up to ₹1,500 on orders of ₹5,000 and aboveT&C",
+          "Special PriceGet extra 25% off (price inclusive of dummy/coupon)T&C"
+        ],
+        "reviews": "40 Reviews",
+        "cut_price": "₹30,000",
+        "after_5_percent": ["2250"],
+        "coupon_val": 1800
+      }
+    ]
+  }
+  
