@@ -26,5 +26,13 @@ class Comparison(models.Model):
     product2 = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
-# class Wishlist(models.Model):
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'product')
+
 

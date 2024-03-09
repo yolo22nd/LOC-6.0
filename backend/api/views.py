@@ -9,7 +9,8 @@ from .models import *
 from .serializers import *
 from django.utils import timezone
 from rest_framework import status
-
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
@@ -259,4 +260,23 @@ class ProductComparison(APIView):
         return None
        
 
-# class AddtoWishList(APIView)
+
+class WishlistAdd(APIView):
+    authentication_classes = [] 
+    permission_classes = [AllowAny]
+    def post(self, request):
+        user = request.user
+        product_id = request.data.get('product_id')
+
+        # Check if the product is already in the wishlist
+        if Wishlist.objects.filter(user=user, product_id=int(product_id)).exists():
+            return Response({'message': 'Product already in wishlist'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Add the product to the wishlist
+        Wishlist.objects.create(user=user, product_id=product_id)
+
+        return Response({'message': 'Product added to wishlist'}, status=status.HTTP_201_CREATED)
+
+class WishlistView(viewsets.ModelViewSet):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer

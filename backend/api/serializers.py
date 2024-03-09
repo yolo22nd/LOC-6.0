@@ -10,3 +10,8 @@ class ProductComparisonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comparison
         fields = ['product1', 'product2', 'timestamp']
+
+class WishlistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comparison
+        fields = ['query', 'timestamp']
