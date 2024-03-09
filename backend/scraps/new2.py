@@ -58,10 +58,10 @@ print(product["price"])
 
 
 
-temp = soup.find_all("div", attrs={"class":"a-fixed-left-grid product-facts-detail"})
+temp = soup.find("div", attrs={"class":"a-expander-content a-expander-partial-collapse-content"})
 print(temp)
-for i in temp:
-    print(i)
+# for i in temp:
+#     print(i)
 # product["discount"] = 
 
 
