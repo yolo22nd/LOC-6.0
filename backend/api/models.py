@@ -25,3 +25,6 @@ class Comparison(models.Model):
     product1 = models.IntegerField()
     product2 = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+# class Wishlist(models.Model):
+

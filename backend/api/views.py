@@ -108,11 +108,21 @@ def fetch_data_filtered(csv_file_path, request_data):
             filtered_data7 = filtered_data6
     except KeyError:
         filtered_data7 = filtered_data6
+    try:
+        if request_data['filters']['sort_by'] and request_data['filters']['sort_order']:
+            if request_data['filters']['sort_by'] == 'title':
+                if request_data['filters']['sort_order'] == 'ascending':
+                    filtered_data7 = sorted(filtered_data7, key=lambda x: x['title'])
+                elif request_data['filters']['sort_order'] == 'descending':
+                    filtered_data7 = sorted(filtered_data7, key=lambda x: x['title'], reverse=True)
+            elif request_data['filters']['sort_by'] == 'price':
+                if request_data['filters']['sort_order'] == 'ascending':
+                    filtered_data7 = sorted(filtered_data7, key=lambda x: x['price'])
+                elif request_data['filters']['sort_order'] == 'descending':
+                    filtered_data7 = sorted(filtered_data7, key=lambda x: x['price'], reverse=True)
+    except KeyError:
+        pass
 
-    if request_data['filters']['sort_by'] == 'title':
-        filtered_data7 = sorted(filtered_data7, key=lambda x: x['title'])
-    elif request_data['filters']['sort_by'] == 'price':
-        filtered_data7 = sorted(filtered_data7, key=lambda x: x['price'])
     return filtered_data7
 
 
@@ -198,7 +208,6 @@ def filter_variations(data, request_data):
 
 class SearchView(APIView, LoginRequiredMixin):
     def post(self, request):
-        query = request.data.get('query')
         data = {
             'query' : request.data.get('query'),
             'timestamp' : timezone.now()
@@ -249,3 +258,5 @@ class ProductComparison(APIView):
                     return row  # Return the product data as a dictionary
         return None
        
+
+# class AddtoWishList(APIView)
