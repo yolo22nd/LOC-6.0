@@ -22,7 +22,7 @@ function SidebarContent() {
                 name="discount"
                 className="mr-2"
               />
-              20%-30%
+              30% and above
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
@@ -30,7 +30,7 @@ function SidebarContent() {
                 name="discount"
                 className="mr-2"
               />
-              30%-40%
+              40% and above
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
@@ -38,7 +38,7 @@ function SidebarContent() {
                 name="discount"
                 className="mr-2"
               />
-              40%-50%
+              50% and above
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
@@ -46,9 +46,10 @@ function SidebarContent() {
                 name="discount"
                 className="mr-2"
               />
-              50% && above
+              60% and above
             </label>
             {/* Add more checkbox options for filters */}
+            <button className='bg-white text-violet-500 rounded-xl font-semibold py-2 px-4 mt-16' >Apply</button>
           </div>
         </div>
       );

@@ -74,7 +74,7 @@ export default function CustomSlider() {
         max={50000}
       />
     </Box>
-    <button className='bg-white text-violet-500 rounded-xl font-semibold p-2' onClick={handleApply}>Apply</button>
+    
   </div>
   );
 }
