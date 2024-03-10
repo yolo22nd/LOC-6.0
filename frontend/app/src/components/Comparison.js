@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import Navbar from './Navbar'
+import Naavbar2 from './Naavbar2'
 // import axios from './Axios';
 import axios from "axios";
 
@@ -35,7 +35,7 @@ const [render, setRender] = useState(false);
 
   return (
     <div>
-        <Navbar/>
+        <Naavbar2/>
     <div className='mt-16'>
         <div className='text-6xl pt-8 mb-8 font-bold text-black flex flex-col justify-center '>Product comparison</div>
             <div className='flex justify-center items-center rounded-full'>

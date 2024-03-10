@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "./Axios";
-import Navbar from "./Navbar";
+import Naavbar2 from "./Naavbar2";
 import "./PP.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -205,7 +205,7 @@ const ProductPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Naavbar2/>
       <div className="p-4 flex my-0 mx-auto max-w-[1200px]">
         <main className="main">
           <section className="product-wrapper">

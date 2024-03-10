@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './Navbar'
+import Naavbar2 from './Naavbar2'
 import Animation from'../assets/Business Analysis.gif'
 import Star from'../assets/5 Star Rating.gif'
 import Ai from'../assets/aii.png'
@@ -82,7 +82,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Naavbar2/>
 
       <div className='h-screen flex'>
         <div className='w-[50%] pt-52 h-screen flex  flex-col pl-6'>
