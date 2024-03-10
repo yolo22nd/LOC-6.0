@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import Naavbar2 from './Naavbar2'
 import Animation from'../assets/Business Analysis.gif'
 import Star from'../assets/5 Star Rating.gif'
@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Accordian from './Accordian.js';
 import { useNavigate } from 'react-router-dom'
 import axios from './Axios.js'
+import { TypeAnimation } from 'react-type-animation';
 
 
 const Home = () => {
@@ -79,6 +80,7 @@ const Home = () => {
           console.log(error);
         }
       };
+      const [textColor, setTextColor] = useState('rgb(99 102 241)');
 
   return (
     <div>
@@ -86,10 +88,36 @@ const Home = () => {
 
       <div className='h-screen flex'>
         <div className='w-[50%] pt-52 h-screen flex  flex-col pl-6'>
-            <p className='font-bold text-6xl text-indigo-500'>Find the <span className='text-orange-500'>perfect</span> products</p>
+            {/* <p className='font-bold text-6xl text-indigo-500'>Find the <span className='text-orange-500'>perfect</span> products</p>
             <br/>
             <p className='font-bold text-6xl text-indigo-500'> at the <span className='text-orange-500'>best </span>price!</p>
-            <br/>
+            <br/> */}
+
+     <div
+       style={{
+         fontSize: '5rem',
+         fontWeight:'bold',
+         color: textColor,
+         marginBottom:'4%'
+       }}
+     >
+       <TypeAnimation
+         sequence={[
+          'Find the perfect'         ,
+            800,
+           () => setTextColor('rgb(99 102 241)'),
+           'products at',
+           800,
+           () => setTextColor('rgb(249 115 22'),
+           'the best price',
+           1000,
+           () => setTextColor('rgb(99 102 241)'),
+           '',
+         ]}
+         repeat={Infinity}
+       />
+     </div>
+  
             <p className="text-xl font-bold pl-4 bg-gradient-to-r from-orange-500  to-violet-600 text-transparent bg-clip-text">
           Looking for the ideal gadget, appliance, or accessory? Search no further. This is your one-stop destination for comparing products across a wide range of categories. From smartphones to home appliances, we've got you covered.
         </p>

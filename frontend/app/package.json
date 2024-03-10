@@ -20,6 +20,7 @@
     "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",
     "react-tilt": "^1.0.2",
+    "react-type-animation": "^3.2.0",
     "read-scripts": "^1.1.0",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
