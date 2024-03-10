@@ -20,18 +20,18 @@ const Card = ({ title, img, currency, price, discount, onSelect }) => {
     reset:          true,    // If the tilt effect has to be reset on exit.
     easing:         "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
   }
-  
+  let updatedItems={}
   useEffect(() => {
-    console.log("selectedItems length:", selectedItems.length);
+    console.log("selectedItems length:", updatedItems.length);
   }, [selectedItems]); // Log selectedItems length whenever it changes
 
   const handleCardClick = () => {
     // If selectedItems length is less than 2 or the clicked item is already selected, proceed
-    if (isSelected || selectedItems.length < 2) {
+    if (isSelected || updatedItems.length < 2) {
       setIsSelected(!isSelected);
       // If the item is already selected, remove it from selectedItems
       if (isSelected) {
-        const updatedItems = selectedItems.filter((item) => item !== title);
+         updatedItems = selectedItems.filter((item) => item !== title);
         setSelectedItems(updatedItems);
       } else {
         // If the item is not selected, add it to selectedItems
@@ -43,6 +43,7 @@ const Card = ({ title, img, currency, price, discount, onSelect }) => {
       // You might want to add some feedback to the user, e.g., a toast message
     }
   };
+  
 
   return parameter ? (
     <div
