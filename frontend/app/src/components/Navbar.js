@@ -1,11 +1,9 @@
-import React, { useEffect ,useState} from 'react';
+import React, { useEffect ,useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import AuthContext from '../context/AuthContext';
+import ProductContext from '../context/ProductContext';
 import { AppBar, Toolbar, Typography, Button, Box ,TextField} from '@mui/material';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import Slider from './Slider';
 import axios from './Axios'
@@ -74,8 +72,8 @@ function Sidebar() {
 
 
 const Navbar = () => {
-  const [searchInput, setSearchInput] = useState("");
   const naviagte = useNavigate();
+  const {setMinPrice, setMaxPrice, searchInput, setSearchInput} = useContext(ProductContext);
 
   const searchContent = () => {
     let s = document.getElementById("search-content")?.value;
@@ -93,6 +91,9 @@ const Navbar = () => {
         { headers: { "Content-Type": "application/json" } }
       );  
       if(res){
+        setMaxPrice("")
+        setMinPrice("")
+        setSearchInput("")
         naviagte('/productlist', { state: res.data.data});
       }
     } catch (error) {

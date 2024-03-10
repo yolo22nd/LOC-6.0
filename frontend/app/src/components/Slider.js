@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import ProductContext from '../context/ProductContext';
+import axios from './Axios';
+import { useNavigate } from 'react-router-dom';
 
 function valuetext(value) {
   return `${value}°C`;
@@ -10,6 +13,8 @@ const minDistance = 10;
 
 export default function CustomSlider() {
   const [value1, setValue1] = useState([1, 50000]);
+  const {minPrice, setMinPrice, maxPrice, setMaxPrice, searchInput, setSearchInput} = useContext(ProductContext);
+  const naviagte = useNavigate();
 
   const handleChange1 = (
     event,
@@ -27,12 +32,30 @@ export default function CustomSlider() {
     }
   };
 
-  const handleApply = () => {
+  
+  const handleApply = async () => {
+    try {
+      
     const [minValue, maxValue] = value1;
-    // You can now use minValue and maxValue as the selected range
-    console.log('Min Value:', minValue);
-    console.log('Max Value:', maxValue);
+    setMinPrice(minValue);
+    setMaxPrice(maxValue);
+      console.log("Search: ", searchInput,"\nMin: ",minValue,"\nMax: ",maxValue)
+      let res = await axios.post(
+        "fetchfiltered/",
+        { search: searchInput, filter: {minPrice: minValue, maxPrice: maxValue} },
+        { headers: { "Content-Type": "application/json" } }
+      );  
+      if(res){
+        setMaxPrice("")
+        setMinPrice("")
+        setSearchInput("")
+        naviagte('/productlist', { state: res.data.data});
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
 
   return (
     <div className='pt-8'>
