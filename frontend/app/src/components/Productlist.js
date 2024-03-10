@@ -2,31 +2,53 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Card from "./Card";
 import { useLocation } from "react-router-dom";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Productlist = () => {
   const [data, setData] = useState([]);
   const [render, setRender] = useState(true);
   const { state } = useLocation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 30; // Number of items to display per page
+  const maxPageNumbers = 3; // Maximum number of page numbers to display
+
   const getData = async () => {
     const res = await state;
     setData(res);
     if (data) {
       setRender(true);
-      console.log(data)
+      console.log(data);
     }
   };
+
   useEffect(() => {
     getData();
   }, [state]);
 
   console.log("state: ", state);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 30; // Number of items to display per page
 
+  // Calculate total number of pages
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  // Calculate the index of the last and first item on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
+  // Generate an array of page numbers to display
+  const generatePageNumbers = () => {
+    const pageNumbers = [];
+    const startPage = Math.max(currentPage - Math.floor(maxPageNumbers / 2), 1);
+    const endPage = Math.min(startPage + maxPageNumbers - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
+  // Function to handle pagination
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -45,21 +67,40 @@ const Productlist = () => {
             />
           ))}
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 mb-12">
         <nav>
           <ul className="pagination flex">
-            {Array.from(
-              { length: Math.ceil(data.length / itemsPerPage) },
-              (_, index) => (
-                <li key={index} className="page-item mr-4">
-                  <button
-                    onClick={() => paginate(index + 1)}
-                    className="page-link w-8 h-8 border-orange-400 border-2 hover:bg-orange-400 rounded-sm"
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              )
+            {currentPage > 1 && (
+              <li className="page-item mr-4">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  className="page-link w-8 h-8 "
+                >
+                  <ArrowBackIosIcon/>
+                </button>
+              </li>
+            )}
+            {generatePageNumbers().map((pageNumber) => (
+              <li key={pageNumber} className="page-item mr-4">
+                <button
+                  onClick={() => paginate(pageNumber)}
+                  className={`page-link w-8 h-8 border-orange-400 border-2 hover:bg-orange-400 rounded-sm ${
+                    pageNumber === currentPage ? "bg-orange-400" : ""
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              </li>
+            ))}
+            {currentPage < totalPages && (
+              <li className="page-item mr-4">
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  className="page-link w-8 h-8"
+                >
+                  <ArrowForwardIosIcon/>
+                </button>
+              </li>
             )}
           </ul>
         </nav>
