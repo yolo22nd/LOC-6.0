@@ -10,50 +10,64 @@ import axios from './Axios'
 
 
 function SidebarContent() {
-    return (
-        <div className="bg-orange-500 text-white w-64 h-screen fixed top-16 left-0 z-8 mt-2">
-          <h2 className="font-bold text-lg p-4">Filters</h2>
-          <div className="px-4">
-            <Slider/>
-            <div className='text-white text-xl font-medium text-left mt-12'>Discount:</div>
-            <label className="flex items-center mt-4 text-lg font-semibold">
-              <input
-                type="radio"
-                name="discount"
-                className="mr-2"
-              />
-              30% and above
-            </label>
-            <label className="flex items-center mt-4 text-lg font-semibold">
-              <input
-                type="radio"
-                name="discount"
-                className="mr-2"
-              />
-              40% and above
-            </label>
-            <label className="flex items-center mt-4 text-lg font-semibold">
-              <input
-                type="radio"
-                name="discount"
-                className="mr-2"
-              />
-              50% and above
-            </label>
-            <label className="flex items-center mt-4 text-lg font-semibold">
-              <input
-                type="radio"
-                name="discount"
-                className="mr-2"
-              />
-              60% and above
-            </label>
-            {/* Add more checkbox options for filters */}
-            <button className='bg-white text-violet-500 rounded-xl font-semibold py-2 px-4 mt-16' >Apply</button>
-          </div>
-        </div>
+  const naviagte = useNavigate();
+  const { minPrice, setMinPrice, maxPrice, setMaxPrice, searchInput, setSearchInput, discount, setDiscount } =
+    useContext(ProductContext);
+
+  const changedisc = async (e) => {
+    console.log(e)
+    setDiscount(e)
+  }
+
+  const handleClick = async () => {
+    try {
+      let res = await axios.post(
+        "fetchfiltered/",
+        { search: searchInput, filter: {minPrice: minPrice, maxPrice: maxPrice, discount:discount} },
+        { headers: { "Content-Type": "application/json" } }
       );
+      if (res) {
+        setMaxPrice("");
+        setMinPrice("");
+        setSearchInput("");
+        setDiscount("");
+        naviagte("/productlist", { state: res.data.data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div className="bg-orange-500 text-white w-64 h-screen fixed top-16 left-0 z-8 mt-2">
+      <h2 className="font-bold text-lg p-4">Filters</h2>
+      <div className="px-4">
+        <Slider />
+        <div className="text-white text-xl font-medium text-left mt-12">
+          Discount:
+        </div>
+        <label className="flex items-center mt-4 text-lg font-semibold">
+          <input type="radio" name="discount" className="mr-2" id="20andmore" value='20andmore' onClick={()=>changedisc(20)}/>
+          20% and above
+        </label>
+        <label className="flex items-center mt-4 text-lg font-semibold">
+          <input type="radio" name="discount" className="mr-2" id="30andmore" value='30andmore' onClick={()=>changedisc(30)}/>
+          30% and above
+        </label>
+        <label className="flex items-center mt-4 text-lg font-semibold">
+          <input type="radio" name="discount" className="mr-2" id="40andmore" value='40andmore' onClick={()=>changedisc(40)}/>
+          40% and above
+        </label>
+        <label className="flex items-center mt-4 text-lg font-semibold">
+          <input type="radio" name="discount" className="mr-2" id="50andmore" value='50andmore' onClick={()=>changedisc(50)}/>
+          50% and above
+        </label>
+        <button className='bg-white text-violet-500 rounded-xl font-semibold py-2 px-4 mt-16' onClick={()=>handleClick()} >Apply</button>
+        {/* Add more checkbox options for filters */}
+      </div>
+    </div>
+  );
 }
+
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +94,8 @@ function Sidebar() {
 
 const Navbar = () => {
   const naviagte = useNavigate();
-  const {setMinPrice, setMaxPrice, searchInput, setSearchInput} = useContext(ProductContext);
+  const { setMinPrice, setMaxPrice, searchInput, setSearchInput, setDiscount } =
+    useContext(ProductContext);
 
   const searchContent = () => {
     let s = document.getElementById("search-content")?.value;
@@ -96,12 +111,13 @@ const Navbar = () => {
         "fetchfiltered/",
         { search: searchInput, filter: {} },
         { headers: { "Content-Type": "application/json" } }
-      );  
-      if(res){
-        setMaxPrice("")
-        setMinPrice("")
-        setSearchInput("")
-        naviagte('/productlist', { state: res.data.data});
+      );
+      if (res) {
+        setMaxPrice("");
+        setMinPrice("");
+        setSearchInput("");
+        setDiscount("");
+        naviagte("/productlist", { state: res.data.data });
       }
     } catch (error) {
       console.log(error);
@@ -141,7 +157,7 @@ const Navbar = () => {
                   placeholder="Search"
                   aria-label="Search"
                   aria-describedby="button-addon1"
-                  id='search-content'
+                  id="search-content"
                   onChange={() => searchContent()}
                 />
                 <button

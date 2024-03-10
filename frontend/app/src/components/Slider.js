@@ -13,7 +13,7 @@ const minDistance = 10;
 
 export default function CustomSlider() {
   const [value1, setValue1] = useState([1, 50000]);
-  const {minPrice, setMinPrice, maxPrice, setMaxPrice, searchInput, setSearchInput} = useContext(ProductContext);
+  const {minPrice, setMinPrice, maxPrice, setMaxPrice} = useContext(ProductContext);
   const naviagte = useNavigate();
 
   const handleChange1 = (
@@ -30,30 +30,10 @@ export default function CustomSlider() {
     } else {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
-  };
-
-  
-  const handleApply = async () => {
-    try {
-      
     const [minValue, maxValue] = value1;
     setMinPrice(minValue);
     setMaxPrice(maxValue);
-      console.log("Search: ", searchInput,"\nMin: ",minValue,"\nMax: ",maxValue)
-      let res = await axios.post(
-        "fetchfiltered/",
-        { search: searchInput, filter: {minPrice: minValue, maxPrice: maxValue} },
-        { headers: { "Content-Type": "application/json" } }
-      );  
-      if(res){
-        setMaxPrice("")
-        setMinPrice("")
-        setSearchInput("")
-        naviagte('/productlist', { state: res.data.data});
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(minValue, maxValue)
   };
 
 
@@ -74,7 +54,6 @@ export default function CustomSlider() {
         max={50000}
       />
     </Box>
-    
   </div>
   );
 }

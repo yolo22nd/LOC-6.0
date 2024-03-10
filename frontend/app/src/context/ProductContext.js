@@ -10,7 +10,7 @@ export const ProductProvider = ({children}) => {
     let [maxPrice, setMaxPrice] = useState("");
     let [sortBy, setSortBy] = useState("");
     let [searchInput, setSearchInput] = useState("");
-    // let [minPrice, setMinPrice] = useState("0");
+    let [discount, setDiscount] = useState("0");
 
     let contextData = {
         minPrice:minPrice,
@@ -20,7 +20,9 @@ export const ProductProvider = ({children}) => {
         sortBy:sortBy,
         setSortBy:setSortBy,
         searchInput:searchInput,
-        setSearchInput:setSearchInput
+        setSearchInput:setSearchInput,
+        discount:discount,
+        setDiscount:setDiscount
     }
 
     return(

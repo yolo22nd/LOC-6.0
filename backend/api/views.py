@@ -28,7 +28,7 @@ class FetchAllData(APIView):
             serializer = SearchHistorySerializer(data=search_data)
             if serializer.is_valid():
                 serializer.save()
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_all(csv_file_path, request.data)
 
         for i in data:
@@ -55,7 +55,7 @@ def fetch_data_all(csv_file_path, request_data):
 
 class FetchFilteredData(APIView):
     def post(self, request):
-        csv_file_path = 'C:/Users/Parushi/Desktop/loc4/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_filtered(csv_file_path, request.data)
         for i in data:
             if i["images"]:
@@ -333,7 +333,7 @@ class WishlistAdd(APIView):
         if Wishlist.objects.filter(user=user, product=int(product_id)).exists():
             return Response({'message': 'Product already in wishlist'}, status=status.HTTP_400_BAD_REQUEST)
 
-        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'
+        csv_file_path = 'C:/Users/Milan/codes/LOC 6.0/flipkart_data_2022_06_sample.csv'
         with open(csv_file_path, 'r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             # data = list(reader)
