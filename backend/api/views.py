@@ -10,18 +10,33 @@ from .serializers import *
 from django.utils import timezone
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
+from django.contrib.auth import get_user
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
 class FetchAllData(APIView):
-    def get(self, request):
+    def post(self, request):
+        user = request.user
+        if user:
+            print('user')
+            search_data = {
+                'user' : user.id,
+                'query' : request.data.get('search'),
+                'timestamp' : timezone.now()
+            }
+            serializer = SearchHistorySerializer(data=search_data)
+            if serializer.is_valid():
+                serializer.save()
         csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
-        data = fetch_data_all(csv_file_path)
+        data = fetch_data_all(csv_file_path, request.data)
+
         for i in data:
             if i["images"]:
                 i["images"] = i["images"].split(" | ")
-        return Response({"data" : data[0-5]})
+
+        
+        return Response({"data" : data})
 
 
 def fetch_data_all(csv_file_path, request_data):
@@ -32,12 +47,14 @@ def fetch_data_all(csv_file_path, request_data):
 
     filtered_data = []
     for row in data:
-        request_data['search'].lower() in row['title'].lower()
-    return data
+        if request_data['search'].lower() in row['title'].lower():
+            filtered_data.append(row)
+    return filtered_data
+
 
 
 class FetchFilteredData(APIView):
-    def get(self, request):
+    def post(self, request):
         csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'  # Path to your CSV file
         data = fetch_data_filtered(csv_file_path, request.data)
         for i in data:
@@ -206,33 +223,31 @@ def filter_variations(data, request_data):
             filtered_data.append(row.copy())
     return filtered_data
 
-
-class SearchView(APIView, LoginRequiredMixin):
-    def post(self, request):
-        data = {
-            'query' : request.data.get('query'),
-            'timestamp' : timezone.now()
-        }
-        serializer = SearchHistorySerializer(data=data)
-        if serializer.is_valid():
-            serializer.save(user=self.request.user)
-        else:
-            return Response({'message' : 'error'})
-        
+      
 
 class ProductComparison(APIView):
     def post(self, request):
-        data = {
-            'product1': request.data.get('product1'),
-            'product2': request.data.get('product2'),
-            'timestamp' : timezone.now()
-        }
-
-        serializer = ProductComparisonSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
+        user = request.user
+        if user.is_authenticated:
+            data = {
+                'user': user.id,
+                'product1': request.data.get('product1'),
+                'product2': request.data.get('product2'),
+                'timestamp' : timezone.now()
+            }
+            serializer = ProductComparisonSerializer(data=data)
+            print(serializer)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response({'message' : 'error'})
         else:
-            return Response({'message' : 'error'})
+            data = {
+                'user': None,
+                'product1': request.data.get('product1'),
+                'product2': request.data.get('product2'),
+                'timestamp' : timezone.now()
+            }
         
         product1_data = self.get_product_data_from_csv(request.data.get('product1'))
         product2_data = self.get_product_data_from_csv(request.data.get('product2'))
@@ -254,29 +269,95 @@ class ProductComparison(APIView):
             # data = list(reader)
             for row in reader:
                 print(product_id)
-                # print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++', row)
                 if int(row['index']) == product_id:
                     return row  # Return the product data as a dictionary
         return None
        
 
+class PreviousComparisons(viewsets.ModelViewSet):
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            queryset = Comparison.objects.filter(user=user)
+            serializer = ProductComparisonSerializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({'message': 'User not authenticated'}, status=401)
+
+class AllComparisons(viewsets.ModelViewSet):
+    queryset=Comparison.objects.all()
+    serializer_class = ProductComparisonSerializer
+
+class SearchHistoryView(APIView,):
+    def post(self, request):
+        user = request.user
+        print(user)
+        if not user.is_authenticated:
+            return Response({'detail': 'User not registered.'}, status=status.HTTP_403_FORBIDDEN)
+        # user =request.user
+        data = {
+            'user' : user.id,
+            'query' : request.data.get('query'),
+            'timestamp' : timezone.now()
+        }
+        serializer = SearchHistorySerializer(data=data)
+        print(serializer)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserSearchHistory(viewsets.ModelViewSet):
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            queryset = SearchHistory.objects.filter(user=user)
+            serializer = SearchHistorySerializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            pass
+
 
 class WishlistAdd(APIView):
-    authentication_classes = [] 
-    permission_classes = [AllowAny]
+    # authentication_classes = [JWTAuthentication] 
+    # permission_classes = [IsAuthenticated]
     def post(self, request):
         user = request.user
         product_id = request.data.get('product_id')
 
-        # Check if the product is already in the wishlist
-        if Wishlist.objects.filter(user=user, product_id=int(product_id)).exists():
+        if not user.is_authenticated:
+            return Response({'detail': 'User not registered.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        if Wishlist.objects.filter(user=user, product=int(product_id)).exists():
             return Response({'message': 'Product already in wishlist'}, status=status.HTTP_400_BAD_REQUEST)
 
+        csv_file_path = 'C:/Codes/Django_Codes/loc/LOC-6.0/flipkart_data_2022_06_sample.csv'
+        with open(csv_file_path, 'r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            # data = list(reader)
+            for row in reader:
+                print(product_id)
+                # print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++', row)
+                if int(row['index']) == int(product_id):
+                    Wishlist.objects.create(user=user, product=int(product_id))
+
+        # Check if the product is already in the wishlist
+        
+        
         # Add the product to the wishlist
-        Wishlist.objects.create(user=user, product_id=product_id)
+        # Wishlist.objects.create(user=user, product=product)
 
         return Response({'message': 'Product added to wishlist'}, status=status.HTTP_201_CREATED)
 
+
 class WishlistView(viewsets.ModelViewSet):
-    queryset = Wishlist.objects.all()
-    serializer_class = WishlistSerializer
+    def list(self, request):
+        user = request.user
+        if user.is_authenticated:
+            queryset = Wishlist.objects.filter(user=user)
+            serializer = WishlistSerializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            pass
