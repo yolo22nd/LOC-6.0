@@ -1,11 +1,9 @@
-import React, { useEffect ,useState} from 'react';
+import React, { useEffect ,useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import AuthContext from '../context/AuthContext';
+import ProductContext from '../context/ProductContext';
 import { AppBar, Toolbar, Typography, Button, Box ,TextField} from '@mui/material';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 import Slider from './Slider';
 import axios from './Axios'
@@ -17,32 +15,38 @@ function SidebarContent() {
           <h2 className="font-bold text-lg p-4">Filters</h2>
           <div className="px-4">
             <Slider/>
+            <div className='text-white text-xl font-medium text-left mt-12'>Discount:</div>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.brand}
-                // onChange={() => handleFilterChange("brand")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Brand
+              20%-30%
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.price}
-                // onChange={() => handleFilterChange("price")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Price
+              30%-40%
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.category}
-                // onChange={() => handleFilterChange("category")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Category
+              40%-50%
+            </label>
+            <label className="flex items-center mt-4 text-lg font-semibold">
+              <input
+                type="radio"
+                name="discount"
+                className="mr-2"
+              />
+              50% && above
             </label>
             {/* Add more checkbox options for filters */}
           </div>
@@ -74,8 +78,8 @@ function Sidebar() {
 
 
 const Navbar = () => {
-  const [searchInput, setSearchInput] = useState("");
   const naviagte = useNavigate();
+  const {setMinPrice, setMaxPrice, searchInput, setSearchInput} = useContext(ProductContext);
 
   const searchContent = () => {
     let s = document.getElementById("search-content")?.value;
@@ -93,6 +97,9 @@ const Navbar = () => {
         { headers: { "Content-Type": "application/json" } }
       );  
       if(res){
+        setMaxPrice("")
+        setMinPrice("")
+        setSearchInput("")
         naviagte('/productlist', { state: res.data.data});
       }
     } catch (error) {
