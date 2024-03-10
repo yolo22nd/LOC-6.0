@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+# from urllib.parse import urljoin
 
 results=[]
 # base_url = "https://www.flipkart.com/search"
