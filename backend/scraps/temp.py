@@ -103,18 +103,13 @@ print(elements_price)
 # driver.get(review_url)
 # print(indiv_review)
 
+products=[
+    {'website': 'amazon', 'title': 'Apple iPhone 13 (256GB) - (Product) RED', 'price': '61,900', 'img': ['https://m.media-amazon.com/images/I/315oQlfQ6WL._SY445_SX342_QL70_ML2_.jpg'], 'discount': '-11%', 'about': ['', '', '', '', '', ''], 'rating': '4.6 out of 5 stars', 'link': 'https://www.amazon.in/Apple-iPhone-13-128GB-Green/dp/B09G9HDN4Q/ref=sr_1_1?crid=1EA3SCHCHDZF2&dib=eyJ2IjoiMSJ9.lylV35R4vlcik0aaO6wOgUefKEwUaeYWK_OuM494a4M2jxaiHGLt-9jMmKFSoG5Orh4Y7OSuWxfkGXRCMvTHdohYmhkhicOTJnl7Pyk2HcGupNeJu_-_GgEuV6Se1pwcIUJZUsGXv1xb_Cp60U71vNzMMC9J0ZWPhbQSVsIzCqUjIv4xGv3AdFxIeiubIVLa.FP_WPgel0NsZggtK-G1O5U14rn_TxPwGLAHspRzOp7w&dib_tag=se&keywords=Apple%2BiPhone%2BXS%2B(Space%2BGrey%2C%2B64%2BGB)&qid=1709968267&sprefix=apple%2Biphone%2Bxs%2Bspace%2Bgrey%2C%2B64%2Bgb%2B%2Caps%2C322&sr=8-1&th=1', 'variations': ['', '', '', '', '', ''], 'options': ['https://m.media-amazon.com/images/I/11VmJVS7yrL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11F1Hxzw6qL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11POY6uLQUL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11+wm+cM1LL._SS36_.jpg', 'https://m.media-amazon.com/images/I/01ytk+eqYTL._SS36_.jpg']},
+    {'website': 'amazon', 'title': 'Apple iPhone 13 (256GB) - (Product) RED', 'price': '61,900', 'img': ['https://m.media-amazon.com/images/I/315oQlfQ6WL._SY445_SX342_QL70_ML2_.jpg'], 'discount': '-11%', 'about': ['', '', '', '', '', ''], 'rating': '4.6 out of 5 stars', 'link': 'https://www.amazon.in/Apple-iPhone-13-128GB-Green/dp/B09G9HDN4Q/ref=sr_1_1?crid=1EA3SCHCHDZF2&dib=eyJ2IjoiMSJ9.lylV35R4vlcik0aaO6wOgUefKEwUaeYWK_OuM494a4M2jxaiHGLt-9jMmKFSoG5Orh4Y7OSuWxfkGXRCMvTHdohYmhkhicOTJnl7Pyk2HcGupNeJu_-_GgEuV6Se1pwcIUJZUsGXv1xb_Cp60U71vNzMMC9J0ZWPhbQSVsIzCqUjIv4xGv3AdFxIeiubIVLa.FP_WPgel0NsZggtK-G1O5U14rn_TxPwGLAHspRzOp7w&dib_tag=se&keywords=Apple%2BiPhone%2BXS%2B(Space%2BGrey%2C%2B64%2BGB)&qid=1709968267&sprefix=apple%2Biphone%2Bxs%2Bspace%2Bgrey%2C%2B64%2Bgb%2B%2Caps%2C322&sr=8-1&th=1', 'variations': ['', '', '', '', '', ''], 'options': ['https://m.media-amazon.com/images/I/11VmJVS7yrL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11F1Hxzw6qL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11POY6uLQUL._SS36_.jpg', 'https://m.media-amazon.com/images/I/11+wm+cM1LL._SS36_.jpg', 'https://m.media-amazon.com/images/I/01ytk+eqYTL._SS36_.jpg']}
+    ]
+# Pad the lists in the dictionary so they all have the same length
+df = pd.DataFrame(products)
 
-# restaurant_names = ["HnH Salad Co.", "Govinda's Bistro", "Blabber All Day", "Grandmama's Cafe","The Barn @ Food Square","The Homemade Cafe & Bar","Zoca Cafe","Bayleaf Cafe","Toco","Prithvi Cafe"
-#                         "Coco Cafe"]
-# dict = {"Names": restaurant_names, "overall rating": overall_review, "individual review": indiv_review, "comments": comments}
-
-# create a Pandas DataFrame from the dictionary
-# max_len = max(len(v) for v in dict.values())
-# save the DataFrame as a CSV file
-# dict = {k: np.pad(v, (0, max_len - len(v)), mode="constant") for k, v in dict.items()}
-
-# create a Pandas DataFrame from the padded dictionary
-# df = pd.DataFrame(dict)
-
-# save the DataFrame as a CSV file
-# df.to_csv("output.csv", header=True, index=False)
+# Save the DataFrame as a CSV file
+# If the file does not exist, it will be created. If it does exist, the new data will be appended without the header.
+df.to_csv("output.csv", mode='a', header=False, index=False)
