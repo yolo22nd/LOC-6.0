@@ -1,5 +1,5 @@
 import React, { useEffect ,useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProductContext from '../context/ProductContext';
 import { AppBar, Toolbar, Typography, Button, Box ,TextField} from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
@@ -135,7 +135,7 @@ const Navbar = () => {
           <div className="w-[60%]">
             <ul className="flex">
               <li className="mt-4 mb-4 mx-8 cursor-pointer text-orange-500 hover:text-orange-700 hover:text-lg">
-                <a href="#"></a>Home
+                <Link to="/home"></Link>Home
               </li>
               <li className="mt-4 mb-4 mx-8 cursor-pointer text-orange-500 hover:text-orange-700 hover:text-lg">
                 <a href="#"></a>About

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Card from "./Card";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Tilt } from 'react-tilt'
@@ -26,6 +26,7 @@ const Productlist = () => {
     }
   };
 
+  const navigate = useNavigate();
   const defaultOptions = {
     reverse:        false,  // reverse the tilt direction
     max:            35,     // max tilt rotation (degrees)
@@ -65,6 +66,9 @@ const Productlist = () => {
   // Function to handle pagination
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const navigateh = () => {
+    navigateh('/comparison')
+  }
   const handleSelect = (title, isSelected) => {
     // Handle selection logic here
     console.log(`${title} is selected: ${isSelected}`);
@@ -75,7 +79,7 @@ const Productlist = () => {
       <Navbar></Navbar>
       {state.parameter && (
         <div className="p-4 pt-24 flex justify-center">
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-md">Compare</button>
+          <Link to='/comparison/' className="bg-orange-500 text-white px-4 py-2 rounded-md" onClick={() => navigateh}>Compare</Link>
         </div>
       )}
       <div className="flex flex-wrap justify-center pt-32 ml-64">
