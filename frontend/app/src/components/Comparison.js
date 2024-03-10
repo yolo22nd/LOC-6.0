@@ -9,25 +9,15 @@ const Comparison = () => {
 console.log(data)
 const [render, setRender] = useState(false);
     const getData = async () => {
-
-
         let res = await axios.post('http://127.0.0.1:8000/compare/', {
-            "product1":5,
+            "product1":4,
             "product2":2
           }, { headers: { 'Content-Type': 'application/json' } });
-        let data = await res.data;
-        console.log(data.comparison_data); // Check the retrieved data
-        setData(data)
-        setRender(true);
-  
-
-
-        // const res = await axios.post('compare/',{product1:'5',product2:'2'}, { headers: { 'Content-Type': 'application/json' } });
-        // await setData(res.data.data)
-        // console.log(res.data.data)
-        if(data[0]?.title !== null)
-        setRender(true);
-        console.log(res)
+        console.log(res.data.comparison_data); // Check the retrieved data
+        setData(res.data)
+        if(data){
+            setRender(true)
+        }
     }
     useEffect(() => {
         getData();

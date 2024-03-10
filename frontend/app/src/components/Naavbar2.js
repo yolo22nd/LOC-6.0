@@ -2,26 +2,42 @@ import React, { useEffect ,useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductContext from '../context/ProductContext';
 import { AppBar, Toolbar, Typography, Button, Box ,TextField} from '@mui/material';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SearchIcon from '@mui/icons-material/Search';
-// import Slider from './Slider';
 import axios from './Axios'
 
 
 const Naavbar2 = () => {
   const naviagte = useNavigate();
+  const { setMinPrice, setMaxPrice, searchInput, setSearchInput, setDiscount } =
+    useContext(ProductContext);
 
   const searchContent = () => {
     let s = document.getElementById("search-content")?.value;
     if (s) {
-    //   setSearchInput(s);
+      setSearchInput(s);
       console.log(s);
     }
   };
 
+  const handleClick = async () => {
+    try {
+      let res = await axios.post(
+        "fetchfiltered/",
+        { search: searchInput, filter: {} },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      if (res) {
+        setMaxPrice("");
+        setMinPrice("");
+        setSearchInput("");
+        setDiscount("");
+        naviagte("/productlist", { state: res.data.data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  useEffect(() => {}, []);
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#fff" }}>
@@ -59,7 +75,7 @@ const Naavbar2 = () => {
                 />
                 <button
                   className="text-gray-500 text-sm mr-2"
-                //   onClick={() => handleClick()}
+                  onClick={() => handleClick()}
                 >
                   Search
                 </button>

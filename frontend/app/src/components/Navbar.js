@@ -124,8 +124,6 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {}, []);
-
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#fff" }}>
       <Toolbar>

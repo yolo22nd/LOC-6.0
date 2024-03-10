@@ -72,9 +72,9 @@ const Productlist = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar></Navbar>
       {state.parameter && (
-        <div className="flex justify-end p-4 pt-24 flex justify-center">
+        <div className="p-4 pt-24 flex justify-center">
           <button className="bg-orange-500 text-white px-4 py-2 rounded-md">Compare</button>
         </div>
       )}
@@ -82,6 +82,7 @@ const Productlist = () => {
         {render &&
           currentItems.map((product) => (
             <Tilt options={defaultOptions}>
+              {product.images[0]?
             <Card 
               key={product.pid}
               title={product.title}
@@ -90,7 +91,7 @@ const Productlist = () => {
               price={product.price}
               discount={product.discount}
               onSelect={handleSelect}
-            />
+            />: ""}
             </Tilt>
           ))}
       </div>

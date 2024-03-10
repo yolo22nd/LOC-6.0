@@ -1,10 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 import pandas as pd
-import numpy as np
 
 def inner_page_details(base_url):
+    base_url = 'https://www.amazon.in/Motorola-Turbocharging-UltraPixel-Technology-Water-Repellent/dp/B0CKLRV6X9/ref=sr_1_3?sr=8-3'
     user_agent = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     }
@@ -16,12 +15,33 @@ def inner_page_details(base_url):
     product={}
     product['website']="amazon"
 
+    desc = []
+    temp = soup.find("table", attrs={"id": "productDetails_detailBullets_sections1"})
+    for tbody in temp:
+        for tr in tbody:
+            data = {}
+            count = 0
+            th = ''
+            td = ''
+            for i in tr:
+                if count == 0:
+                    th = i
+                else:
+                    td = i
+                count+=1
+            data[th] = td
+            desc.append(data)
+                
+    print(desc)
+
+
     product["title"] = soup.find("span", attrs={"id":'productTitle'}).text.strip()
     print(product["title"])
     temp = soup.find("span", attrs={"class":'a-price aok-align-center reinventPricePriceToPayMargin priceToPay'})
     count = 1
     for i in temp:
         for j in i:
+            print(j)
             if count == 3:
                 product["price"]=j.text.strip()
             count+=1
@@ -29,9 +49,10 @@ def inner_page_details(base_url):
 
 
 
+    
 
-    temp = soup.find_all("div", attrs={"class":"a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list"})
-    print(temp)
+    # temp = soup.find_all("div", attrs={"class":"a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list"})
+    # print(temp)
 
 
     product["img"] = [img['src'] for img in soup.find_all('img', {'class': 'a-dynamic-image'})]

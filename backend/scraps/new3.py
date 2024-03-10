@@ -3,10 +3,10 @@ from bs4 import BeautifulSoup
 import json
 
 results=[]
-# base_url = "https://www.flipkart.com/motorola-g34-5g-ocean-green-128-gb/p/itm6b1a33b9d9191?pid=MOBGUFK4TZ2CJYHJ&lid=LSTMOBGUFK4TZ2CJYHJPBUF6M&marketplace=FLIPKART&q=mobiles&store=tyy%2F4io&srno=s_1_2&otracker=AS_Query_TrendingAutoSuggest_1_0_na_na_na&otracker1=AS_Query_TrendingAutoSuggest_1_0_na_na_na&fm=organic&iid=3228bb11-1177-409c-b140-fefd824d94b9.MOBGUFK4TZ2CJYHJ.SEARCH&ppt=hp&ppn=homepage&ssid=obk18jlji80000001710028372170&qH=eb4af0bf07c16429"
 
 def inner_page_details(base_url):
 
+    base_url = "https://www.flipkart.com/motorola-g34-5g-ocean-green-128-gb/p/itm6b1a33b9d9191?pid=MOBGUFK4TZ2CJYHJ&lid=LSTMOBGUFK4TZ2CJYHJPBUF6M&marketplace=FLIPKART&q=mobiles&store=tyy%2F4io&srno=s_1_2&otracker=AS_Query_TrendingAutoSuggest_1_0_na_na_na&otracker1=AS_Query_TrendingAutoSuggest_1_0_na_na_na&fm=organic&iid=3228bb11-1177-409c-b140-fefd824d94b9.MOBGUFK4TZ2CJYHJ.SEARCH&ppt=hp&ppn=homepage&ssid=obk18jlji80000001710028372170&qH=eb4af0bf07c16429"
     user_agent = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     }
@@ -17,27 +17,27 @@ def inner_page_details(base_url):
 
     product={}
     product['website']="flipkart"
-    # print(product["website"])
+    print(product["website"])
 
     product["title"] = soup.find("span", attrs={"class":'B_NuCI'}).text.strip()
-    # print(product["title"])
+    print(product["title"])
 
     price_list = []
     price_element = soup.find("div", {"class": "_30jeq3"})
     product["price"] = price_element.text.strip()
-    # print(product["price"])
+    print(product["price"])
 
 
     discount_element = soup.find("div", attrs={"class": "_3Ay6Sb _31Dcoz"})
     for i in discount_element:
         product["discount"] = i.text.strip()
-    # print(product["discount"])
+    print(product["discount"])
 
 
     cut_price_element = soup.find("div", {"class": "_3I9_wc _2p6lqe"})
     if cut_price_element:
         product["cut_price"] = cut_price_element.text.strip()
-    # print(product["cut_price"])
+    print(product["cut_price"])
 
     product_images = []
     product_imgs = soup.find_all("li", attrs={"class": "_20Gt85 _1Y_A6W"})
@@ -47,14 +47,14 @@ def inner_page_details(base_url):
                 for l in k:
                     product_images.append(l['src'])
     product["images"] = product_images
-    # print(product["images"])
+    print(product["images"])
 
     titles = []
     title_elements = soup.find_all("div", attrs={"class": "flxcaE"})
     for div in title_elements:
         titles.append(div.text.strip())
     product["description_titles"] = titles
-    # print(product["description_titles"])
+    print(product["description_titles"])
 
     tables = soup.find_all("table", class_="_14cfVK")
     table_data_list = []
@@ -68,12 +68,12 @@ def inner_page_details(base_url):
                 table_data[headers[0].text.strip()] = values[0].text.strip()
         table_data_list.append(table_data)
     product["description_info"] = json.dumps(table_data_list, indent=2)
-    # print(product["description_info"])
+    print(product["description_info"])
 
     desc_div = soup.find("div", {"class":"_1mXcCf RmoJUa"})
     for i in desc_div:
         product["about"] = i.text.strip()
-        # print(product["about"])
+        print(product["about"])
 
     # review_format = soup.find_all("div", attrs={"class": "col _2wzgFH"})
     # count = 0
@@ -90,10 +90,10 @@ def inner_page_details(base_url):
     #     count+=1
 
     product["rating"] = soup.find("div", attrs={"class":'_2d4LTz'}).text.strip()
-    # print(product["rating"])
+    print(product["rating"])
 
     product["link"] = base_url
-    # print(product["link"])
+    print(product["link"])
 
     product["variations"] = [li.text.strip() for li in soup.find_all('li', {'class': 'a-spacing-small item'})]
 

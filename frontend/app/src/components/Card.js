@@ -20,7 +20,7 @@ const Card = ({ title, img, currency, price, discount, onSelect }) => {
       setIsSelected(!isSelected);
       // If the item is already selected, remove it from selectedItems
       if (isSelected) {
-        const updatedItems = updatedItems.append(selectedItems.filter((item) => item !== title));
+        const updatedItems = selectedItems.filter((item) => item !== title);
         setSelectedItems(updatedItems);
       } else {
         // If the item is not selected, add it to selectedItems
