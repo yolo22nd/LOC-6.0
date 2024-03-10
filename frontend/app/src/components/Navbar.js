@@ -15,32 +15,38 @@ function SidebarContent() {
           <h2 className="font-bold text-lg p-4">Filters</h2>
           <div className="px-4">
             <Slider/>
+            <div className='text-white text-xl font-medium text-left mt-12'>Discount:</div>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.brand}
-                // onChange={() => handleFilterChange("brand")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Brand
+              20%-30%
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.price}
-                // onChange={() => handleFilterChange("price")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Price
+              30%-40%
             </label>
             <label className="flex items-center mt-4 text-lg font-semibold">
               <input
-                type="checkbox"
-                // checked={filters.category}
-                // onChange={() => handleFilterChange("category")}
+                type="radio"
+                name="discount"
                 className="mr-2"
               />
-              Category
+              40%-50%
+            </label>
+            <label className="flex items-center mt-4 text-lg font-semibold">
+              <input
+                type="radio"
+                name="discount"
+                className="mr-2"
+              />
+              50% && above
             </label>
             {/* Add more checkbox options for filters */}
           </div>

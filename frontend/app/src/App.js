@@ -7,6 +7,12 @@ import Productlist from './components/Productlist';
 import Home  from './components/Home';
 import Comparison from './components/Comparison';
 
+import Register from './components/register';
+import Login from './components/login';
+
+import { AuthProvider } from './context/AuthContext';
+
+
 function App() {
   return (
     <div className="App">
@@ -15,11 +21,11 @@ function App() {
           <ProductProvider>
             <Routes>      
               <Route path='/pp' element={<ProductPage/>}/>
-              {/* <Route element={<Loginpage/>} path='/login'/>   */}
+              <Route element={<Login/>} path='/login'/>  
               <Route element={<Home/>} path='/'/>  
               <Route element={<Productlist/>} path='/productlist'/>  
               <Route element={<Comparison/>} path='/comparison'/>  
-              {/* <Route element={<Registerpage/>} path='/register'/>   */}
+              <Route element={<Register/>} path='/register'/>  
             </Routes>
             </ProductProvider>
           {/* </AuthProvider> */}

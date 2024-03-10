@@ -73,7 +73,7 @@ const Home = () => {
             { headers: { "Content-Type": "application/json" } }
           );  
           if(res){
-            navigate('/productlist', { state: res.data.data});
+            navigate('/productlist', { state: { data: res.data.data, parameter: 'compare' }});
           }
         } catch (error) {
           console.log(error);

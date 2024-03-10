@@ -15,10 +15,13 @@ const Productlist = () => {
 
   const getData = async () => {
     const res = await state;
-    setData(res);
+    if (res.data) {
+      setData(res.data);
+    } else {
+      setData(res);
+    }
     if (data) {
       setRender(true);
-      console.log(data);
     }
   };
 
@@ -26,15 +29,13 @@ const Productlist = () => {
     getData();
   }, [state]);
 
-  console.log("state: ", state);
-
   // Calculate total number of pages
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   // Calculate the index of the last and first item on the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
   // Generate an array of page numbers to display
   const generatePageNumbers = () => {
@@ -51,23 +52,34 @@ const Productlist = () => {
   // Function to handle pagination
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleSelect = (title, isSelected) => {
+    // Handle selection logic here
+    console.log(`${title} is selected: ${isSelected}`);
+  };
+
   return (
     <>
       <Navbar />
+      {state.parameter && (
+        <div className="flex justify-end p-4 pt-24 flex justify-center">
+          <button className="bg-orange-500 text-white px-4 py-2 rounded-md">Compare</button>
+        </div>
+      )}
       <div className="flex flex-wrap justify-center pt-32 ml-64">
         {render &&
           currentItems.map((product) => (
-            <Card
+            <Card 
               key={product.pid}
               title={product.title}
               img={product.images?.[0]}
               currency={product.currency}
               price={product.price}
               discount={product.discount}
+              onSelect={handleSelect}
             />
           ))}
       </div>
-      <div className="flex justify-center mt-4 mb-12">
+      <div className="flex justify-center mt-4">
         <nav>
           <ul className="pagination flex">
             {currentPage > 1 && (
